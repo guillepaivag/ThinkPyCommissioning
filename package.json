@@ -13,6 +13,7 @@
     "dev": "node --env-file=.env --import tsx src/index.ts"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^4.0.41",
     "@ai-sdk/openai": "^4.0.66",
     "@slack/bolt": "^5.1.0",
     "@slack/types": "^3.1.0",
