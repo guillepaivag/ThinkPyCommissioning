@@ -50,6 +50,57 @@ Today those gaps surface days later, during document review, when the technician
 
 All technician-facing prose is Spanish, the language of the crews using it. Protocol field identifiers stay as English machine identifiers.
 
+### Capturas: correspondencia con los casos de uso
+
+Estas capturas documentan la demo de Slack. Las etiquetas distinguen el caso de
+uso previsto de lo que efectivamente se ve en la interfaz.
+
+#### Caso 1 — Voc incompleto: falta irradiancia
+
+El mensaje contiene `Voc`, temperatura de módulo e instrumento, pero no
+irradiancia. Es el hallazgo de campos faltantes que debe activar el agente.
+
+![Caso 1 — Voc incompleto: falta irradiancia](docs/demo-cases/case-01-missing-irradiance.png)
+
+#### Caso 9 — Completado tardío
+
+La irradiancia llega en un mensaje posterior y sin repetir el string ni el
+paso. El ✅ sobre ese mensaje evidencia que completó el registro anterior.
+
+![Caso 9 — Completado tardío](docs/demo-cases/case-09-late-completion.png)
+
+#### Variante de registro incompleto — Voc sin temperatura ni instrumento
+
+Esta captura no reproduce literalmente uno de los nueve guiones: muestra el
+mismo comportamiento de registro incompleto, aplicado a Voc y con dos campos
+faltantes (`module_temp_c` e `instrument`).
+
+![Variante — Voc incompleto](docs/demo-cases/variant-incomplete-voc.png)
+
+#### Caso 5 — Placa del inversor incorrecta
+
+La placa de `INV-03` presenta el serial de prueba terminado en `042`, distinto
+del serial esperado terminado en `024`; corresponde al caso de mismatch de
+placa.
+
+![Caso 5 — Placa incorrecta](docs/demo-cases/case-05-wrong-nameplate.png)
+
+#### Caso 6 — Placa correcta, con guardrail de asociación mostrado
+
+La segunda verificación corresponde al caso de placa correcta. Sin embargo,
+la captura muestra el guardrail real de la demo: la foto no se asoció a un
+ensayo del protocolo y el agente la rechazó; por eso **no** se presenta como
+evidencia del resultado esperado de ✅ silencioso del Caso 6.
+
+![Caso 6 — Guardrail de asociación](docs/demo-cases/case-06-nameplate-association-guardrail.png)
+
+#### Caso 7 — Foto ilegible
+
+La placa está oscura/reflejada y el serial no puede leerse. El agente pide una
+fotografía legible en vez de inventar el valor.
+
+![Caso 7 — Foto ilegible](docs/demo-cases/case-07-unreadable-nameplate.png)
+
 ---
 
 ## Why this only works inside Slack
