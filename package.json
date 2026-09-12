@@ -1,0 +1,32 @@
+{
+  "name": "commissioning-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "tsx src/demo/runner.ts",
+    "start": "node --env-file=.env dist/index.js",
+    "dev": "node --env-file=.env --import tsx src/index.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/groq": "^4.0.41",
+    "@ai-sdk/openai": "^4.0.66",
+    "@slack/bolt": "^5.1.0",
+    "@slack/types": "^3.1.0",
+    "ai": "^7.0.99",
+    "better-sqlite3": "^12.6.2",
+    "yaml": "^2.8.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}

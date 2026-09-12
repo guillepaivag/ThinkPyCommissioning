@@ -1,0 +1,16 @@
+blocks:
+  - id: INV-03
+    protocol_id: pv-string-verification
+    inverter:
+      id: INV-03
+      manufacturer: Sungrow
+      model: SG125CX-P2
+      serial_expected: A240903042
+    strings:
+      - STR-03-01
+      - STR-03-02
+channel_bindings:
+  - channel_id: C0C28JJ4QNL
+    block_id: INV-03
+    protocol_id: pv-string-verification
+    enabled: true

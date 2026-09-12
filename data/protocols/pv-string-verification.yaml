@@ -1,0 +1,68 @@
+id: pv-string-verification
+name: PV String Verification
+steps:
+  - id: visual_inspection
+    name: Visual inspection
+    target_type: string
+    requires: [visual_check]
+    fields:
+      visual_check: { type: string }
+    checks: []
+  - id: protective_earth_continuity
+    name: Protective earth continuity
+    target_type: string
+    requires: [continuity_ohm, instrument]
+    fields:
+      continuity_ohm: { type: number, unit: ohm }
+      instrument: { type: string }
+    checks:
+      - { type: range, field: continuity_ohm, max: 1, phase: acceptance }
+  - id: polarity
+    name: Polarity
+    target_type: string
+    requires: [polarity]
+    fields:
+      polarity: { type: string }
+    checks:
+      - { type: exists_in, field: polarity, allowed_values: [correct], phase: acceptance }
+  - id: voc
+    name: Open Circuit Voltage
+    target_type: string
+    requires: [voc_v, irradiance_w_m2, module_temp_c, instrument]
+    fields:
+      voc_v: { type: number, unit: V }
+      irradiance_w_m2: { type: number, unit: W/m2 }
+      module_temp_c: { type: number, unit: C }
+      instrument: { type: string }
+    checks:
+      - { type: range, field: irradiance_w_m2, min: 700, phase: condition }
+      - { type: range, field: voc_v, min: 802, max: 886, phase: acceptance }
+  - id: isc
+    name: Short Circuit Current
+    target_type: string
+    requires: [isc_a, irradiance_w_m2, module_temp_c, instrument]
+    fields:
+      isc_a: { type: number, unit: A }
+      irradiance_w_m2: { type: number, unit: W/m2 }
+      module_temp_c: { type: number, unit: C }
+      instrument: { type: string }
+    checks:
+      - { type: range, field: irradiance_w_m2, min: 700, phase: condition }
+      - { type: range, field: isc_a, min: 11, max: 15, phase: acceptance }
+  - id: insulation_resistance
+    name: Insulation resistance
+    target_type: string
+    requires: [insulation_mohm, instrument]
+    fields:
+      insulation_mohm: { type: number, unit: Mohm }
+      instrument: { type: string }
+    checks:
+      - { type: range, field: insulation_mohm, min: 1, phase: acceptance }
+  - id: inverter_nameplate
+    name: Inverter Nameplate
+    target_type: inverter
+    requires: [serial]
+    fields:
+      serial: { type: string }
+    checks:
+      - { type: equals, field: serial, expected_from: equipment.serial_expected, phase: acceptance }
