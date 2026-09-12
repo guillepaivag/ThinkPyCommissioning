@@ -62,15 +62,7 @@ intended use case from what is actually visible in the interface.
 The message includes `Voc`, module temperature, and an instrument, but no
 irradiance. It is the missing-field finding that activates the agent.
 
-![Case 1 — Incomplete Voc: missing irradiance](./docs/demo-cases/case-01-missing-irradiance.png)
-
-#### Case 8 — Message burst ("spamming")
-
-Three short messages—Voc, temperature, then irradiance and instrument—arrive
-as a burst. The agent accumulates them by `channel + string + step` as one
-test and adds ✅ only to the third message, with no warning.
-
-![Case 8 — Message burst](./docs/demo-cases/case-08-message-burst.png)
+![Case 1 — Incomplete Voc: missing irradiance](./docs/demo-cases/case-03-incomplete-record.png)
 
 #### Case 2 — Complete Voc
 
@@ -79,20 +71,6 @@ accepts the measurement without posting a warning.
 
 ![Case 2 — Complete Voc](./docs/demo-cases/case-02-complete-voc.png)
 
-#### Case 3 — Incomplete record: missing temperature and instrument
-
-This screenshot demonstrates the incomplete-record behavior, with two missing
-fields:
-`module_temp_c` and `instrument`.
-
-![Case 3 — Incomplete record](./docs/demo-cases/case-03-incomplete-record.png)
-
-#### Case 6 — Incorrect inverter nameplate
-
-The `INV-03` nameplate shows the test serial ending in `042`, rather than the
-expected serial ending in `024`; it is the nameplate-mismatch case.
-
-![Case 6 — Incorrect nameplate](./docs/demo-cases/case-06-incorrect-nameplate.png)
 
 #### Case 5 — Correct nameplate, with the association guardrail shown
 
@@ -101,7 +79,14 @@ screenshot shows the demo's real association guardrail: the photo was not
 associated with a protocol test and the agent rejected it. It therefore is
 **not** presented as proof of Case 5's expected silent ✅ outcome.
 
-![Case 5 — Association guardrail](./docs/demo-cases/case-05-nameplate-association-guardrail.png)
+![Case 5 — Association guardrail](./docs/demo-cases/case-06-incorrect-nameplate.png)
+
+#### Case 6 — Incorrect inverter nameplate
+
+The `INV-03` nameplate shows the test serial ending in `042`, rather than the
+expected serial ending in `024`; it is the nameplate-mismatch case.
+
+![Case 6 — Incorrect nameplate](./docs/demo-cases/case-05.png)
 
 #### Case 7 — Unreadable photo
 
@@ -109,6 +94,14 @@ The nameplate is dark or reflective and its serial cannot be read. The agent
 asks for a legible photo instead of inventing a value.
 
 ![Case 7 — Unreadable photo](./docs/demo-cases/case-07-unreadable-nameplate.png)
+
+#### Case 8 — Message burst ("spamming")
+
+Three short messages—Voc, temperature, then irradiance and instrument—arrive
+as a burst. The agent accumulates them by `channel + string + step` as one
+test and adds ✅ only to the third message, with no warning.
+
+![Case 8 — Message burst](./docs/demo-cases/case-08-message-burst.png)
 
 ---
 
