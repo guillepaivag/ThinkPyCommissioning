@@ -505,10 +505,10 @@ Also: multiple protocols per channel, a view for the responsible engineer to man
 
 ## Presentation slides
 
+![The Problem](./docs/presentation/04-problem.png)
+
 ![The Solution](./docs/presentation/01-solution.png)
 
 ![Why This Case Study Works](./docs/presentation/02-case-study.png)
 
 ![The Team](./docs/presentation/03-team.png)
-
-![The Problem](./docs/presentation/04-problem.png)
