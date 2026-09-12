@@ -62,6 +62,14 @@ irradiancia. Es el hallazgo de campos faltantes que debe activar el agente.
 
 ![Caso 1 — Voc incompleto: falta irradiancia](docs/demo-cases/case-01-missing-irradiance.png)
 
+#### Caso 8 — Ráfaga de mensajes ("spameo")
+
+Tres mensajes cortos —Voc, temperatura e irradiancia con instrumento— llegan
+como una ráfaga. El agente los acumula por `canal + string + paso` como un solo
+ensayo y publica ✅ únicamente sobre el tercer mensaje, sin advertencia.
+
+![Caso 8 — Ráfaga de mensajes](docs/demo-cases/case-08-message-burst.png)
+
 #### Caso 9 — Completado tardío
 
 La irradiancia llega en un mensaje posterior y sin repetir el string ni el
