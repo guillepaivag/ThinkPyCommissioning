@@ -71,6 +71,19 @@ accepts the measurement without posting a warning.
 
 ![Case 2 — Complete Voc](./docs/demo-cases/case-02-complete-voc.png)
 
+#### Case 3 — Incomplete Isc: missing module temperature
+
+The technician reports `STR-03-01 Isc 13.2 A`, irradiance of `940 W/m²`, and
+the `SMFT-1000` instrument, but omits the module temperature. The observation
+is technically plausible, yet incomplete under the protocol.
+
+![Case 3 — Isc input without module temperature](./docs/demo-cases/case-03-isc-missing-temperature-input.png)
+
+The agent deterministically identifies the missing `module_temp_c` field and
+posts the approval-gated finding.
+
+![Case 3 — Missing module-temperature finding](./docs/demo-cases/case-03-isc-missing-temperature-finding.png)
+
 
 #### Case 5 — Correct nameplate, with the association guardrail shown
 
