@@ -84,6 +84,18 @@ posts the approval-gated finding.
 
 ![Case 3 — Missing module-temperature finding](./docs/demo-cases/case-03-isc-missing-temperature-finding.png)
 
+#### Case 4 — Complete measurement with low irradiance
+
+This Voc observation includes every required field, but the measured irradiance
+is `620 W/m²`, below the demo protocol's `700 W/m²` minimum. The finding is a
+failed **condition** check, not a missing-field error; Voc acceptance is not
+evaluated while that environmental condition is invalid.
+
+The `700 W/m²` threshold is a test condition defined by this demo protocol,
+not a universal IEC 62446-1 requirement for every Voc measurement.
+
+![Case 4 — Low-irradiance condition finding](./docs/demo-cases/case-04-low-irradiance.png)
+
 
 #### Case 5 — Correct nameplate, with the association guardrail shown
 
