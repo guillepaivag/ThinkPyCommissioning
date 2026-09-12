@@ -502,3 +502,13 @@ Word or PDF procedure → protocol draft → engineer approval → versioned pro
 ```
 
 Also: multiple protocols per channel, a view for the responsible engineer to manage limits, and validation against real standards such as IEC 62446-1.
+
+## Presentation slides
+
+![The Solution](./docs/presentation/01-solution.png)
+
+![Why This Case Study Works](./docs/presentation/02-case-study.png)
+
+![The Team](./docs/presentation/03-team.png)
+
+![The Problem](./docs/presentation/04-problem.png)
