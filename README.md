@@ -36,78 +36,77 @@ Today those gaps surface days later, during document review, when the technician
 
 | The technician posts in the block channel | The agent responds |
 |---|---|
-| `STR-03-02 Voc 845 V, irradiancia 930 W/m², módulo 46 °C, SMFT-1000` | ⏳ while processing, then ✅ on the message. **No text.** |
-| `STR-03-01 Voc 842 V, módulo 47 °C, SMFT-1000` | ⏳, then a finding card: missing irradiance, with **Aprobar / Rechazar** |
-| Later, only `irradiancia 940 W/m²` | The same card is updated to **✅ Resuelto**, and ✅ lands on the completing message |
-| A burst: `STR-03-01 Voc 843 V` · `Temp módulo 47 °C` · `Irradiancia 940 W/m², SMFT-1000` | One accumulated record, ✅ on the last message only |
-| `STR-03-01 Isc 13.1 A, irradiancia 620 W/m², módulo 46 °C, SMFT-1000` | Finding: measurement conditions invalid. The Isc range is deliberately not evaluated |
+| `STR-03-02 Voc 845 V, irradiance 930 W/m², module 46 °C, SMFT-1000` | ⏳ while processing, then ✅ on the message. **No text.** |
+| `STR-03-01 Voc 842 V, module 47 °C, SMFT-1000` | ⏳, then a finding card: missing irradiance, with **Approve / Reject** |
+| Later, only `irradiance 940 W/m²` | The same card is updated to **✅ Resolved**, and ✅ lands on the completing message |
+| A burst: `STR-03-01 Voc 843 V` · `Module temp 47 °C` · `Irradiance 940 W/m², SMFT-1000` | One accumulated record, ✅ on the last message only |
+| `STR-03-01 Isc 13.1 A, irradiance 620 W/m², module 46 °C, SMFT-1000` | Finding: measurement conditions invalid. The Isc range is deliberately not evaluated |
 | Photo of the inverter nameplate showing the planned serial | The vision model reads the serial, it equals the planned one, ✅ |
 | Photo of a nameplate with a different serial | Finding: the observed serial does not match the planned equipment |
-| A blurred photo, or a photo unrelated to the work | Reply: *"La imagen no coincide con lo esperado…"*. Never a guessed value |
-| The same unresolved finding observed again | Threaded reply: *"Hallazgo ya registrado (pendiente de aprobación)"*. No duplicate action |
+| A blurred photo, or a photo unrelated to the work | Reply: *"The image does not match the expected work…"*. Never a guessed value |
+| The same unresolved finding observed again | Threaded reply: *"Finding already recorded (awaiting approval)"*. No duplicate action |
 | No outcome within two minutes | ⏳ is replaced by ❌, and cleared if the outcome arrives later |
 | Unrelated chat | A brief ⏳, then nothing |
 
-All technician-facing prose is Spanish, the language of the crews using it. Protocol field identifiers stay as English machine identifiers.
+Production technician-facing copy is localized for the crew; protocol field identifiers remain English machine identifiers.
 
-### Capturas: correspondencia con los casos de uso
+### Screenshots: use-case mapping
 
-Estas capturas documentan la demo de Slack. Las etiquetas distinguen el caso de
-uso previsto de lo que efectivamente se ve en la interfaz.
+These screenshots document the Slack demo. Their labels distinguish the
+intended use case from what is actually visible in the interface.
 
-#### Caso 1 — Voc incompleto: falta irradiancia
+#### Case 1 — Incomplete Voc: missing irradiance
 
-El mensaje contiene `Voc`, temperatura de módulo e instrumento, pero no
-irradiancia. Es el hallazgo de campos faltantes que debe activar el agente.
+The message includes `Voc`, module temperature, and an instrument, but no
+irradiance. It is the missing-field finding that activates the agent.
 
-![Caso 1 — Voc incompleto: falta irradiancia](docs/demo-cases/case-01-missing-irradiance.png)
+![Case 1 — Incomplete Voc: missing irradiance](./docs/demo-cases/case-01-missing-irradiance.png)
 
-#### Caso 8 — Ráfaga de mensajes ("spameo")
+#### Case 8 — Message burst ("spamming")
 
-Tres mensajes cortos —Voc, temperatura e irradiancia con instrumento— llegan
-como una ráfaga. El agente los acumula por `canal + string + paso` como un solo
-ensayo y publica ✅ únicamente sobre el tercer mensaje, sin advertencia.
+Three short messages—Voc, temperature, then irradiance and instrument—arrive
+as a burst. The agent accumulates them by `channel + string + step` as one
+test and adds ✅ only to the third message, with no warning.
 
-![Caso 8 — Ráfaga de mensajes](docs/demo-cases/case-08-message-burst.png)
+![Case 8 — Message burst](./docs/demo-cases/case-08-message-burst.png)
 
-#### Caso 9 — Completado tardío
+#### Case 9 — Late completion
 
-La irradiancia llega en un mensaje posterior y sin repetir el string ni el
-paso. El ✅ sobre ese mensaje evidencia que completó el registro anterior.
+Irradiance arrives in a later message without repeating the string or step.
+The ✅ on that message shows that it completed the earlier record.
 
-![Caso 9 — Completado tardío](docs/demo-cases/case-09-late-completion.png)
+![Case 9 — Late completion](./docs/demo-cases/case-09-late-completion.png)
 
-#### Variante de registro incompleto — Voc sin temperatura ni instrumento
+#### Incomplete-record variant — Voc without temperature or instrument
 
-Esta captura no reproduce literalmente uno de los nueve guiones: muestra el
-mismo comportamiento de registro incompleto, aplicado a Voc y con dos campos
-faltantes (`module_temp_c` e `instrument`).
+This screenshot is not a literal reproduction of one of the nine scripts. It
+shows the same incomplete-record behavior for Voc, with two missing fields:
+`module_temp_c` and `instrument`.
 
-![Variante — Voc incompleto](docs/demo-cases/variant-incomplete-voc.png)
+![Incomplete-record variant — Voc](./docs/demo-cases/variant-incomplete-voc.png)
 
-#### Caso 5 — Placa del inversor incorrecta
+#### Case 5 — Incorrect inverter nameplate
 
-La placa de `INV-03` presenta el serial de prueba terminado en `042`, distinto
-del serial esperado terminado en `024`; corresponde al caso de mismatch de
-placa.
+The `INV-03` nameplate shows the test serial ending in `042`, rather than the
+expected serial ending in `024`; it is the nameplate-mismatch case.
 
-![Caso 5 — Placa incorrecta](docs/demo-cases/case-05-wrong-nameplate.png)
+![Case 5 — Incorrect nameplate](./docs/demo-cases/case-05-wrong-nameplate.png)
 
-#### Caso 6 — Placa correcta, con guardrail de asociación mostrado
+#### Case 6 — Correct nameplate, with the association guardrail shown
 
-La segunda verificación corresponde al caso de placa correcta. Sin embargo,
-la captura muestra el guardrail real de la demo: la foto no se asoció a un
-ensayo del protocolo y el agente la rechazó; por eso **no** se presenta como
-evidencia del resultado esperado de ✅ silencioso del Caso 6.
+The second verification belongs to the correct-nameplate case. However, the
+screenshot shows the demo's real association guardrail: the photo was not
+associated with a protocol test and the agent rejected it. It therefore is
+**not** presented as proof of Case 6's expected silent ✅ outcome.
 
-![Caso 6 — Guardrail de asociación](docs/demo-cases/case-06-nameplate-association-guardrail.png)
+![Case 6 — Association guardrail](./docs/demo-cases/case-06-nameplate-association-guardrail.png)
 
-#### Caso 7 — Foto ilegible
+#### Case 7 — Unreadable photo
 
-La placa está oscura/reflejada y el serial no puede leerse. El agente pide una
-fotografía legible en vez de inventar el valor.
+The nameplate is dark or reflective and its serial cannot be read. The agent
+asks for a legible photo instead of inventing a value.
 
-![Caso 7 — Foto ilegible](docs/demo-cases/case-07-unreadable-nameplate.png)
+![Case 7 — Unreadable photo](./docs/demo-cases/case-07-unreadable-nameplate.png)
 
 ---
 
@@ -150,7 +149,7 @@ In the canonical pattern, an incoming external signal often directly satisfies a
 | Pattern | Where |
 |---|---|
 | Structured Output Specification | Zod schemas with `generateObject` in `src/agent/classify.ts`, `extract.ts` and `propose.ts`. The extraction schema is derived from the protocol YAML at runtime. |
-| Human-in-the-Loop Approval Framework | Block Kit **Aprobar / Rechazar** in `src/surface/slack.ts`, with persisted transitions. |
+| Human-in-the-Loop Approval Framework | Block Kit **Approve / Reject** in `src/surface/slack.ts`, with persisted transitions. |
 | Exact-Action Authorization Binding | Each button carries the `pending_actions.id` it acts on. An approval for one finding can never approve another. |
 | Visual AI Multimodal Integration | Slack photos are downloaded with the bot token and read by a vision model in `src/agent/extract.ts`. |
 
@@ -172,7 +171,7 @@ flowchart LR
   W --> V{Deterministic validation<br/>required, condition, acceptance}
   V -- complete --> OK[Check reaction<br/>no message]
   V -- difference --> P[LLM wording in Spanish]
-  P --> H[Aprobar or Rechazar<br/>bound to pending_action.id]
+  P --> H[Approve or Reject<br/>bound to pending_action.id]
   H --> D[(Persisted state<br/>Slack message updated)]
 ```
 
@@ -257,7 +256,7 @@ The system fails closed. When it cannot know something, it does not invent it.
 | A continuation names neither target nor step | Associated deterministically only when exactly one open record gains a missing field; otherwise left to the classifier, and dropped if still ambiguous |
 | A speculative extraction was made for the wrong step | Never reused. The observation is always extracted against the step actually resolved |
 | A photo cannot be downloaded | Ignored before any model call, marked ❌. It is never classified from an empty message |
-| A photo is blurred or unrelated | Replied to as *"no coincide con lo esperado"* and never merged into a record as empty evidence |
+| A photo is blurred or unrelated | Replied to as *"does not match the expected work"* and never merged into a record as empty evidence |
 | Vision provider is rate limited | A photo is read once, after the step is resolved, instead of once per open step |
 | The same finding repeats | No duplicate action. A threaded reply references the existing one |
 | No outcome within two minutes | ⏳ becomes ❌. The deadline stretches with the evaluation window, and a late outcome clears the mark |
@@ -269,7 +268,7 @@ The system fails closed. When it cannot know something, it does not invent it.
 
 ## Human control and authorization
 
-- A finding is a **proposal** until a supervisor presses **Aprobar** or **Rechazar**.
+- A finding is a **proposal** until a supervisor presses **Approve** or **Reject**.
 - The button carries the exact `pending_actions.id`. The store transition is keyed on that id and records `approved_by` and timestamps.
 - Every state change is persisted: `pending`, `approved`, `rejected`, `resolved`. **Deleting the Slack message does not erase the trace.**
 - When late evidence completes a record, the open finding is resolved and the original Slack message is edited in place, instead of posting a new one.
@@ -405,12 +404,12 @@ You should see `slack_connected` and then `commissioning_agent_started`. Every s
 
 Wait for the evaluation window between steps.
 
-1. `STR-03-01 Voc 842 V, módulo 47 °C, SMFT-1000` → finding card for missing irradiance.
-2. `irradiancia 940 W/m²` → the card turns into ✅ Resuelto.
-3. `STR-03-02 Voc 845 V, irradiancia 930 W/m², módulo 46 °C, SMFT-1000` → only ✅, no message.
-4. The burst `STR-03-01 Voc 843 V`, `Temp módulo 47 °C`, `Irradiancia 940 W/m², SMFT-1000` → ✅ on the last message only.
+1. `STR-03-01 Voc 842 V, module 47 °C, SMFT-1000` → finding card for missing irradiance.
+2. `irradiance 940 W/m²` → the card turns into ✅ Resolved.
+3. `STR-03-02 Voc 845 V, irradiance 930 W/m², module 46 °C, SMFT-1000` → only ✅, no message.
+4. The burst `STR-03-01 Voc 843 V`, `Module temp 47 °C`, `Irradiance 940 W/m², SMFT-1000` → ✅ on the last message only.
 5. A nameplate photo with a different serial → finding. The same photo again → threaded "already registered" reply.
-6. A blurred photo → "La imagen no coincide con lo esperado".
+6. A blurred photo → "The image does not match the expected work".
 7. The nameplate photo with the planned serial → the finding resolves and the photo gets ✅.
 
 ---
