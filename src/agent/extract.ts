@@ -2,7 +2,7 @@ import { z } from "zod";
 import { configuredModel, type ModelImage, type ObjectGenerator, vercelObjectGenerator } from "./model.js";
 import type { ObservedValues, ProtocolStep } from "../utils/types.js";
 
-// Strict structured output (Groq, OpenAI) requires every property to be listed as
+// Strict structured-output providers require every property to be listed as
 // required, so absence is expressed as null and stripped below rather than by
 // omitting optional keys.
 function schemaFor(step: ProtocolStep): z.ZodObject<Record<string, z.ZodType>> {

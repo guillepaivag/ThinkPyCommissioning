@@ -20,8 +20,7 @@ describe("model narrow waist", () => {
     expect(generator.mock.calls[0][0].schema.safeParse({ notInProtocol: 1 }).success).toBe(false);
   });
 
-  it("selects Groq while preserving OpenRouter and OpenAI", () => {
-    expect(selectModelProvider({ AI_PROVIDER: "groq", GROQ_API_KEY: "key" })).toBe("groq");
+  it("selects OpenRouter and OpenAI providers", () => {
     expect(selectModelProvider({ AI_PROVIDER: "openrouter", OPENROUTER_API_KEY: "key" })).toBe("openrouter");
     expect(selectModelProvider({ AI_PROVIDER: "openai", OPENAI_API_KEY: "key" })).toBe("openai");
   });

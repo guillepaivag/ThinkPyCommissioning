@@ -1,5 +1,7 @@
 # Commissioning Agent
 
+![Industrial Commissioning Agent cover](./docs/industrial-commissioning-agent-cover.png)
+
 **A silent QA agent that lives in the Slack channel where solar-plant technicians already log their commissioning tests.** Nobody mentions it and nobody runs a command. It reads the ordinary field log, accumulates evidence across messages and photos, and speaks up only when the approved protocol says something is missing, invalid or wrong.
 
 Built during the AI Tinkerers **"Agents, Everywhere"** global hackathon (San Lorenzo, September 12, 2026).
@@ -70,36 +72,36 @@ test and adds ✅ only to the third message, with no warning.
 
 ![Case 8 — Message burst](./docs/demo-cases/case-08-message-burst.png)
 
-#### Case 9 — Late completion
+#### Case 2 — Complete Voc
 
-Irradiance arrives in a later message without repeating the string or step.
-The ✅ on that message shows that it completed the earlier record.
+This screenshot shows the ✅ outcome for a complete Voc observation. The agent
+accepts the measurement without posting a warning.
 
-![Case 9 — Late completion](./docs/demo-cases/case-09-late-completion.png)
+![Case 2 — Complete Voc](./docs/demo-cases/case-02-complete-voc.png)
 
-#### Incomplete-record variant — Voc without temperature or instrument
+#### Case 3 — Incomplete record: missing temperature and instrument
 
-This screenshot is not a literal reproduction of one of the nine scripts. It
-shows the same incomplete-record behavior for Voc, with two missing fields:
+This screenshot demonstrates the incomplete-record behavior, with two missing
+fields:
 `module_temp_c` and `instrument`.
 
-![Incomplete-record variant — Voc](./docs/demo-cases/variant-incomplete-voc.png)
+![Case 3 — Incomplete record](./docs/demo-cases/case-03-incomplete-record.png)
 
-#### Case 5 — Incorrect inverter nameplate
+#### Case 6 — Incorrect inverter nameplate
 
 The `INV-03` nameplate shows the test serial ending in `042`, rather than the
 expected serial ending in `024`; it is the nameplate-mismatch case.
 
-![Case 5 — Incorrect nameplate](./docs/demo-cases/case-05-wrong-nameplate.png)
+![Case 6 — Incorrect nameplate](./docs/demo-cases/case-06-incorrect-nameplate.png)
 
-#### Case 6 — Correct nameplate, with the association guardrail shown
+#### Case 5 — Correct nameplate, with the association guardrail shown
 
 The second verification belongs to the correct-nameplate case. However, the
 screenshot shows the demo's real association guardrail: the photo was not
 associated with a protocol test and the agent rejected it. It therefore is
-**not** presented as proof of Case 6's expected silent ✅ outcome.
+**not** presented as proof of Case 5's expected silent ✅ outcome.
 
-![Case 6 — Association guardrail](./docs/demo-cases/case-06-nameplate-association-guardrail.png)
+![Case 5 — Association guardrail](./docs/demo-cases/case-05-nameplate-association-guardrail.png)
 
 #### Case 7 — Unreadable photo
 
@@ -201,7 +203,7 @@ src/
   surface/slack.ts      Bolt adapter: events, photo download, reactions, Block Kit, replies
   signals/              normalize, accumulate, activation, cooldown, evaluate, scheduler
   domain/               protocol loader, deterministic validator, SQLite store (the only writer)
-  agent/                classify, extract, propose, provider selection (Groq, OpenRouter, OpenAI)
+  agent/                classify, extract, propose, provider selection (OpenRouter, OpenAI)
   demo/                 CLI runner and fixtures for the nine demo cases
   utils/                YAML loader, check functions, shared types
 data/
@@ -294,14 +296,14 @@ The system fails closed. When it cannot know something, it does not invent it.
 | Language and runtime | TypeScript on Node.js |
 | Environment integration | Slack Bolt in Socket Mode: events, file download, reactions, Block Kit, threaded replies, message updates |
 | Model access | Vercel AI SDK `generateObject` with Zod schemas |
-| Models used in the demo | `openai/gpt-oss-120b` for classification, extraction and wording; `qwen/qwen3.8-27b` for vision; both served through Groq |
-| Provider switch | `AI_PROVIDER=groq`, `openrouter` or `openai`, isolated in `src/agent/model.ts` |
+| Models used in the demo | `openai/gpt-oss-120b` for classification, extraction and wording; `qwen/qwen3.8-27b` for vision, served through OpenRouter |
+| Provider switch | `AI_PROVIDER=openrouter` or `openai`, isolated in `src/agent/model.ts` |
 | State | SQLite through `better-sqlite3` |
 | Protocol | YAML |
 | Tests | Vitest plus a CLI runner that exercises production layers |
 | Packaging | Docker, with Google Cloud Run as the single-instance target |
 
-**Sponsor technology.** `gpt-oss-120b` is OpenAI's open-weight model. OpenRouter is implemented as a provider option. Google Cloud Run is the documented deployment target. The recorded demo runs locally with Groq as the serving provider.
+**Sponsor technology.** `gpt-oss-120b` is OpenAI's open-weight model. OpenRouter is implemented as a provider option. Google Cloud Run is the documented deployment target.
 
 ---
 
@@ -382,8 +384,8 @@ cp .env.example .env
 | `SLACK_BOT_TOKEN` | Bot User OAuth Token, `xoxb-…` |
 | `SLACK_APP_TOKEN` | App-level token, `xapp-…` |
 | `SLACK_SIGNING_SECRET` | From Basic Information |
-| `AI_PROVIDER` | `groq` |
-| `GROQ_API_KEY` | Your Groq key |
+| `AI_PROVIDER` | `openrouter` |
+| `OPENROUTER_API_KEY` | Your OpenRouter key |
 | `CLASSIFICATION_MODEL`, `EXTRACTION_MODEL`, `PROPOSAL_MODEL`, `FALLBACK_MODEL` | `openai/gpt-oss-120b` |
 | `VISION_MODEL` | `qwen/qwen3.8-27b` |
 | `EVALUATION_DELAY_SECONDS` | `45` by default, `20` for recording a demo |
@@ -425,7 +427,7 @@ Wait for the evaluation window between steps.
 - Repeated findings answered without a duplicate action.
 - Photos that cannot be downloaded, are unreadable, or are unrelated.
 - The processing indicator: ⏳, ❌ on timeout, and clearing on a late outcome.
-- Provider selection between Groq, OpenRouter and OpenAI.
+- Provider selection between OpenRouter and OpenAI.
 
 `npm run demo -- all` is the end-to-end check of the business loop and must report `9 passed, 0 failed`.
 

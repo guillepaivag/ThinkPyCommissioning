@@ -1,3 +1,5 @@
+import { selectModelProvider } from "./agent/model.js";
+
 export type AppConfig = {
   slackBotToken: string; slackSigningSecret: string; slackAppToken: string; sqlitePath: string;
   classificationModel: string; extractionModel: string; proposalModel: string; visionModel: string; fallbackModel: string;
@@ -23,4 +25,3 @@ export function loadConfig(): AppConfig {
     evaluationDelaySeconds: positive("EVALUATION_DELAY_SECONDS", 45), findingCooldownMinutes: positive("FINDING_COOLDOWN_MINUTES", 30), port: positive("PORT", 8080)
   };
 }
-import { selectModelProvider } from "./agent/model.js";
