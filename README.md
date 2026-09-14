@@ -8,6 +8,10 @@ Built during the AI Tinkerers **"Agents, Everywhere"** global hackathon (San Lor
 
 ---
 
+[![Industrial Commissioning Agent](https://img.youtube.com/vi/D03kxLZg0CM/maxresdefault.jpg)](https://youtu.be/D03kxLZg0CM)
+
+---
+
 ## For judges: where each criterion is answered
 
 | Criterion | Where to look |
