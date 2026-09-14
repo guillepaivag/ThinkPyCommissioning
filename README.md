@@ -8,7 +8,9 @@ Built during the AI Tinkerers **"Agents, Everywhere"** global hackathon (San Lor
 
 ---
 
-[![Industrial Commissioning Agent](https://img.youtube.com/vi/D03kxLZg0CM/maxresdefault.jpg)](https://youtu.be/D03kxLZg0CM)
+The following video presents the Industrial Commissioning Agent project and the tests conducted to validate its operation during the commissioning process.
+
+[![Industrial Commissioning Agent](./docs/commissioning-yt.png)](https://youtu.be/D03kxLZg0CM)
 
 ---
 

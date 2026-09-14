@@ -10,7 +10,7 @@ blocks:
       - STR-03-01
       - STR-03-02
 channel_bindings:
-  - channel_id: C0C28JJ4QNL
+  - channel_id: C0C1E5K241Y
     block_id: INV-03
     protocol_id: pv-string-verification
     enabled: true
